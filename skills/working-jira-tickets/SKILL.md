@@ -1,5 +1,5 @@
 ---
-name: Jira Tickets
+name: Working Jira Tickets
 description: Use when working with JIRA tickets - creating well-structured stories and tasks, splitting large stories, updating status, adding progress comments, linking related issues, and searching for tickets. Ensures clear DoD, appropriate sprint scope, and measurable acceptance criteria
 ---
 

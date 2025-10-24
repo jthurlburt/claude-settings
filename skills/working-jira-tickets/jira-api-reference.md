@@ -6,31 +6,27 @@ Quick reference for creating JIRA tickets via Atlassian REST API.
 
 1. **Never use backslash line breaks (`\`)** - They fail in bash subprocesses. Use single-line or JSON variables.
 2. **Use `-s` flag** - Suppresses curl progress output
-3. **Use `-u` shorthand** - Simpler than manual `Authorization: Basic` headers
+3. **Use Basic auth header** - Keeps API credentials out of Claude's context for better security
 
 **Working pattern:**
 ```bash
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://..."
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://..."
 ```
 
 ## Authentication
 
 **Required environment variables:**
 ```bash
-ATLASSIAN_API_KEY  # From https://id.atlassian.com/manage/api-tokens
+JIRA_BASIC_AUTH    # Base64 encoded: echo -n "email:api_key" | base64
 JIRA_DOMAIN        # e.g., "company.atlassian.net"
-JIRA_EMAIL         # Your Atlassian account email
 ```
 
-**Check if set:**
-```bash
-env | grep -E '^(ATLASSIAN_API_KEY|JIRA_DOMAIN|JIRA_EMAIL)=' | sed 's/ATLASSIAN_API_KEY=.*/ATLASSIAN_API_KEY=<redacted>/'
-```
+**Setup instructions:**
+1. Get API token from https://id.atlassian.com/manage/api-tokens
+2. Generate base64 auth: `echo -n "your-email@company.com:YOUR_API_TOKEN" | base64`
+3. Set in your environment: `export JIRA_BASIC_AUTH="generated_base64_string"`
 
-**Test connection:**
-```bash
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/myself"
-```
+**Note:** Do not test authentication proactively. Assume environment variables are set correctly unless API calls fail.
 
 ## Create Issue
 
@@ -48,7 +44,7 @@ PAYLOAD='{
   }
 }'
 
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue"
 ```
 
 **Issue types:** Story, Task, Bug, Epic
@@ -63,18 +59,18 @@ curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X POST -H "Content-Type: applic
 
 ```bash
 PAYLOAD='{"type": {"name": "Relates"}, "inwardIssue": {"key": "ISSUE-1"}, "outwardIssue": {"key": "ISSUE-2"}}'
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issueLink"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issueLink"
 ```
 
 **Get link types:**
 ```bash
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/issueLinkType" | jq '.issueLinkTypes[] | {name, inward, outward}'
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/issueLinkType" | jq '.issueLinkTypes[] | {name, inward, outward}'
 ```
 
 ## Get Issue
 
 ```bash
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123"
 ```
 
 ## Update Issue
@@ -82,20 +78,20 @@ curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api
 ```bash
 # Update description
 PAYLOAD='{"fields": {"description": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Updated description"}]}]}}}'
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X PUT -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" -X PUT -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123"
 
 # Change parent epic
 PAYLOAD='{"fields": {"parent": {"key": "EPIC-456"}}}'
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X PUT -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" -X PUT -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123"
 
 # Update status (use transition ID from Get Transitions)
 PAYLOAD='{"transition": {"id": "31"}}'
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/transitions"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/transitions"
 ```
 
 **Get available transitions:**
 ```bash
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/transitions" | jq '.transitions[] | {id, name}'
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/transitions" | jq '.transitions[] | {id, name}'
 ```
 
 ## Add Comment
@@ -103,32 +99,32 @@ curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api
 ```bash
 # Add a comment
 PAYLOAD='{"body": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Progress update here"}]}]}}'
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/comment"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/comment"
 
 # Update a comment (use comment ID from Get Comments)
 PAYLOAD='{"body": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Updated comment"}]}]}}'
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X PUT -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/comment/12345"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" -X PUT -H "Content-Type: application/json" -d "$PAYLOAD" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/comment/12345"
 
 # Delete a comment
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" -X DELETE "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/comment/12345"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" -X DELETE "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/comment/12345"
 ```
 
 **Get comments:**
 ```bash
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/comment" | jq '.comments[] | {id, created, author: .author.displayName, body: .body.content[0].content[0].text}'
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/issue/ISSUE-123/comment" | jq '.comments[] | {id, created, author: .author.displayName, body: .body.content[0].content[0].text}'
 ```
 
 ## Search Issues (JQL)
 
 ```bash
 # Get my open tickets
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/search/jql?jql=assignee=currentUser()+AND+statusCategory!=Done&fields=key,summary,status&maxResults=20"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/search/jql?jql=assignee=currentUser()+AND+statusCategory!=Done&fields=key,summary,status&maxResults=20"
 
 # Get tickets where I'm a pair
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/search/jql?jql=statusCategory!=Done+AND+pair=currentUser()+ORDER+BY+created+DESC&fields=key,summary,status&maxResults=20"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/search/jql?jql=statusCategory!=Done+AND+pair=currentUser()+ORDER+BY+created+DESC&fields=key,summary,status&maxResults=20"
 
 # Custom JQL query
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/search/jql?jql=YOUR_JQL_HERE&fields=key,summary,status&maxResults=50"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/search/jql?jql=YOUR_JQL_HERE&fields=key,summary,status&maxResults=50"
 ```
 
 **Common JQL patterns:**
@@ -141,7 +137,7 @@ curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api
 ## Get Project Metadata
 
 ```bash
-curl -s -u "${JIRA_EMAIL}:${ATLASSIAN_API_KEY}" "https://${JIRA_DOMAIN}/rest/api/3/issue/createmeta?projectKeys=PROJECT"
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/issue/createmeta?projectKeys=PROJECT"
 ```
 
 ## Atlassian Document Format (ADF)
@@ -191,10 +187,22 @@ JIRA descriptions use ADF. Basic building blocks:
 
 | Error | Fix |
 |-------|-----|
-| `Client must be authenticated` | Verify env vars set; regenerate token; restart session |
+| `Client must be authenticated` | Check env vars are set (see below); regenerate token; restart session |
 | `Field 'X' cannot be set` | Check project metadata: `/rest/api/3/issue/createmeta?projectKeys=PROJECT` |
 | `description: markup unsupported` | Verify valid ADF JSON structure |
 | `parent issue key invalid` | Verify epic exists and is in same project |
+
+**Check if environment variables are set:**
+```bash
+env | grep -E '^(JIRA_BASIC_AUTH|JIRA_DOMAIN)='
+```
+
+**Test authentication (only if experiencing auth errors):**
+```bash
+curl -s -H "Authorization: Basic ${JIRA_BASIC_AUTH}" "https://${JIRA_DOMAIN}/rest/api/3/myself"
+```
+
+If this returns your user information, authentication is working correctly.
 
 ## API Documentation
 
