@@ -11,6 +11,16 @@ Create well-structured JIRA tickets with clear requirements, specific success cr
 
 **Core principle:** Specific, measurable Definition of Done for single-sprint scope.
 
+## CRITICAL: Required First Step
+
+**BEFORE making ANY JIRA API calls, you MUST:**
+
+1. Read the jira-api-reference.md file in the same directory as this skill
+2. Use the API patterns and curl commands documented in that file
+3. Follow the authentication and payload formats exactly as shown
+
+**Failure to read jira-api-reference.md first will result in failed API calls.**
+
 ## When to Use
 
 - Creating new stories or tasks
@@ -25,6 +35,41 @@ Create well-structured JIRA tickets with clear requirements, specific success cr
 |------|----------|----------|
 | **Story** | Code changes requiring testing/deployment | API changes, UI features, migrations |
 | **Task** | No code deployment needed | Documentation, discovery, data analysis |
+
+## Discovery Tickets (Special Case of Task)
+
+**Purpose:** Gather information to enable writing a refined Story later. Discovery tickets are intentionally less precise - their goal is exploration, not delivery.
+
+### Discovery Ticket Structure
+
+1. **Title** - Same format as Stories: `[Verb] + [Object] + [Context]`
+2. **Description** - What to investigate and why (1-3 sentences)
+3. **Definition of Done** - What information/decision is needed
+4. **NO Implementation Details section** - You don't know enough yet; that comes later
+
+**After discovery:** Create follow-up Story with refined Description + Implementation Details + precise DoD
+
+### Discovery Example
+
+```
+Title: Investigate Email Notification Provider Options
+
+Description: Research email service providers to replace current
+unreliable in-house solution. Need to support 10K+ daily emails
+with delivery tracking.
+
+Definition of Done:
+* Compared 3-5 providers on cost, features, reliability
+* Documented integration complexity for top 2 options
+* Recommendation with rationale in ticket comment
+* Rough effort estimate for migration
+* Ready to write implementation story
+
+Type: Task
+Priority: Medium
+```
+
+**Key difference:** DoD focuses on decisions/learnings rather than working code. Less precision is expected and appropriate for discovery work.
 
 ## Story Structure (3 Required Sections)
 
