@@ -21,6 +21,14 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 Before writing detailed implementation tasks, understand the codebase conventions:
 
+0. **Check for design document**: If this plan is being created from a design phase, reference it
+
+   ```bash
+   test -f docs/designs/*-feature-design.md && fd . docs/designs
+   ```
+
+   Read the design document to understand the intended architecture before planning implementation details. Include design doc link in plan header.
+
 1. **Find similar features**: Search for existing implementations similar to what you're building
 2. **Check decisions**: If `docs/decisions/` exists, review relevant ADRs for architectural context
    ```bash
@@ -67,6 +75,8 @@ Before writing detailed implementation tasks, understand the codebase convention
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
+
+**Design:** [../designs/YYYY-MM-DD-feature-design.md](../designs/YYYY-MM-DD-feature-design.md) _(if exists)_
 
 **Architecture:** [2-3 sentences about approach]
 
