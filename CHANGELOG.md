@@ -16,6 +16,12 @@ This is a personal fork with additional skills and enhancements borrowed from mu
   - 9 skills updated to integrate with `docs/decisions/` and `docs/discoveries/` when present
   - Skills fall back to `mem` for personal tracking when patterns not enabled
   - Comprehensive integration documented in `docs/decisions/001-adopt-knowledge-management.md`
+- Lightweight DDD (Document-Driven Development) patterns integration (2025-11-03)
+  - Design artifact infrastructure in `docs/designs/` with comprehensive README template
+  - 5 workflow skills enhanced to create, reference, and validate design documents
+  - Retcon writing technique (present tense) for design docs
+  - Rationalization defenses (red flags and tables) to prevent skipping design context
+  - Graceful degradation when design docs absent (backward compatible)
 
 ## Attribution
 
@@ -59,6 +65,7 @@ Skills with added capabilities from concept extraction:
 
 - External source adaptation pattern
 - Progressive reasoning framework (steel man alternatives, bias checking)
+- Design documentation phase with retcon writing technique (2025-11-03)
 
 **systematic-debugging:**
 
@@ -71,6 +78,8 @@ Skills with added capabilities from concept extraction:
 **executing-plans:**
 
 - Continuous validation between tasks (type checks, import validation)
+- Design document loading and context awareness (2025-11-03)
+- Rationalization defenses for skipping design docs (2025-11-03)
 
 **finishing-a-development-branch:**
 
@@ -80,6 +89,7 @@ Skills with added capabilities from concept extraction:
 **writing-plans:**
 
 - Existing pattern survey before planning
+- Design document references in plan headers (2025-11-03)
 
 **receiving-code-review:**
 
@@ -88,6 +98,17 @@ Skills with added capabilities from concept extraction:
 **dispatching-parallel-agents:**
 
 - Generalized from debugging-only to cover research, analysis, and any parallel tasks (2025-10-23)
+
+**subagent-driven-development:**
+
+- Design document context passed to implementation subagents (2025-11-03)
+- Rationalization defenses for architectural alignment (2025-11-03)
+
+**documentation-management:**
+
+- Retcon writing guidance for design docs (2025-11-03)
+- Design doc type added to documentation types (2025-11-03)
+- Rationalization defenses for correct tense usage (2025-11-03)
 
 ## Structural Changes
 

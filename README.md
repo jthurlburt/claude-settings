@@ -17,6 +17,7 @@ Plus:
 
 - **Slash Commands** - `/superpowers:brainstorm`, `/superpowers:write-plan`, `/superpowers:execute-plan`, `/superpowers:setup-knowledge-management`
 - **Knowledge Management** - Opt-in [ADR](https://adr.github.io/) (Architecture Decision Records) and DISCOVERIES patterns for tracking decisions and non-obvious solutions
+- **Design Artifacts** - Lightweight document-driven development with `docs/designs/` for architectural designs before implementation
 - **Automatic Integration** - Skills activate automatically when relevant
 - **Consistent Workflows** - Systematic approaches to common engineering tasks
 
@@ -119,19 +120,19 @@ Skills activate automatically when relevant. For example:
 
 **Collaboration**
 
-- **brainstorming** - Socratic design refinement (enhanced)
-- **writing-plans** - Detailed implementation plans (enhanced)
-- **executing-plans** - Batch execution with checkpoints (enhanced)
+- **brainstorming** - Socratic design refinement with design docs (enhanced)
+- **writing-plans** - Detailed implementation plans with design references (enhanced)
+- **executing-plans** - Batch execution with design context (enhanced)
 - **dispatching-parallel-agents** - Concurrent subagent workflows
 - **requesting-code-review** - Pre-review checklist
 - **receiving-code-review** - Responding to feedback (enhanced)
-- **subagent-driven-development** - Fast iteration with quality gates
+- **subagent-driven-development** - Fast iteration with design context and quality gates (enhanced)
 
 **Development Workflow**
 
 - **using-git-worktrees** - Parallel development branches
 - **finishing-a-development-branch** - Merge/PR decision workflow (enhanced)
-- **documentation-management** - Holistic documentation maintenance
+- **documentation-management** - Holistic documentation maintenance with retcon writing (enhanced)
 - **code-and-project-cleanup** - Safe cleanup of code and project artifacts
 
 **Meta**
