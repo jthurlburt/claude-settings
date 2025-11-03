@@ -34,7 +34,10 @@ Execute plan by dispatching fresh subagent per task, with code review after each
 
 ### 1. Load Plan
 
-Read plan file, create TodoWrite with all tasks.
+1. Read plan file
+2. **Check for design document**: If plan header references a design doc, read it
+3. Create TodoWrite with all tasks
+4. Note: Design doc (if exists) will be passed to implementation subagents for architectural context
 
 ### 2. Execute Task with Subagent
 
@@ -48,12 +51,15 @@ Task tool (general-purpose):
   prompt: |
     You are implementing Task N from [plan-file].
 
-    Read that task carefully. Your job is to:
+    **Design Context:** [If design doc exists: Read docs/designs/YYYY-MM-DD-feature-design.md for architectural intent before starting]
+
+    Read the task carefully. Your job is to:
     1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
-    3. Verify implementation works
-    4. Commit your work
-    5. Report back
+    2. Follow architecture from design doc (if provided)
+    3. Write tests (following TDD if task says to)
+    4. Verify implementation works
+    5. Commit your work
+    6. Report back
 
     Work from: [directory]
 
@@ -76,6 +82,14 @@ Task tool (superpowers:code-reviewer):
   HEAD_SHA: [current commit]
   DESCRIPTION: [task summary]
 ```
+
+**If design doc exists:** Include design doc path in code review context:
+
+```
+DESIGN_DOC: docs/designs/YYYY-MM-DD-feature-design.md
+```
+
+Code reviewer checks alignment with both plan and design.
 
 **Code reviewer returns:** Strengths, Issues (Critical/Important/Minor), Assessment
 
