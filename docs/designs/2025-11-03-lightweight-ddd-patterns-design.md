@@ -1,7 +1,7 @@
 # Lightweight DDD Patterns Integration Design
 
 **Date:** 2025-11-03
-**Status:** Draft
+**Status:** Implemented
 **Related ADRs:** [ADR-001](../decisions/001-adopt-knowledge-management.md)
 **Source:** [Amplifier Analysis - Tier 2](../amplifier-analysis.md#22-lightweight-ddd-patterns-extraction-approach)
 
