@@ -92,6 +92,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/):
 - **ADR** (decisions/): Architecture decisions with rationale (if `docs/decisions/` exists)
 - **DISCOVERIES** (discoveries/): Known issues and solutions (if `docs/discoveries/DISCOVERIES.md` exists)
 
+## Red Flags - Retcon Writing Rationalizations
+
+**If you're thinking:**
+
+- "Future tense flows more naturally"
+- "I'm too tired to fix tense"
+- "I'll fix it tomorrow"
+- "Both tenses are fine"
+
+**All of these mean: Use present tense now. The rule exists for exhausted moments.**
+
+| Excuse                         | Reality                                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| "Future tense flows naturally" | Natural doesn't mean clear. Present tense removes ambiguity about what system does vs. plans to do.     |
+| "Too tired to fix"             | Exhaustion is when tense matters most. Ambiguous docs cause more questions during implementation.       |
+| "Fix tomorrow"                 | Tomorrow you won't remember context. Fix takes 30 seconds now, 10 minutes later.                        |
+| "Both are fine"                | Future tense creates interpretation drift. "Will validate" means different things to different readers. |
+
 ## Completion
 
 Ask how to proceed: update all, focus on specific files, create missing docs, or generate migration guide.

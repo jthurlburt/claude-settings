@@ -68,6 +68,23 @@ After all tasks complete and verified:
 - **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
 - Follow that skill to verify tests, present options, execute choice
 
+## Red Flags - Design Doc Rationalizations
+
+**If you're thinking:**
+
+- "Design doc seems redundant with plan"
+- "Too urgent to read design doc"
+- "I'll read it if I have questions"
+- "Following spirit not letter"
+
+**All of these mean: Read the design doc. Step 1 explicitly requires it.**
+
+| Excuse                         | Reality                                                                   |
+| ------------------------------ | ------------------------------------------------------------------------- |
+| "Design doc is redundant"      | Redundancy is validation. 5 min confirms alignment or catches divergence. |
+| "Too urgent to skip reading"   | Emergencies need MORE context. 5 min prevents 30 min debugging wrong fix. |
+| "I'll read if questions arise" | Questions arise from gaps you don't know exist. Read first.               |
+
 ## When to Stop and Ask for Help
 
 **STOP executing immediately when:**

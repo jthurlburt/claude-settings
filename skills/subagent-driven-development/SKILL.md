@@ -196,6 +196,22 @@ Done!
 - Dispatch multiple implementation subagents in parallel (conflicts)
 - Implement without reading plan task
 
+**Design doc rationalizations:**
+
+If you're thinking:
+
+- "Subagent doesn't need design doc for this simple task"
+- "Design doc slows down iteration"
+- "I read it, that's enough"
+
+**All of these mean: Pass design doc to subagent. Step 1 requires it.**
+
+| Excuse                     | Reality                                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------------------- |
+| "Task is too simple"       | Simple tasks still need architectural alignment. 2 min reading prevents integration issues. |
+| "Slows iteration"          | Fast implementation of wrong architecture is slower overall. Context prevents rework.       |
+| "I read it, that's enough" | Subagent has fresh eyes. They'll catch what you missed. Design doc provides shared context. |
+
 **If subagent fails task:**
 
 - Dispatch fix subagent with specific instructions
