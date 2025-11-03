@@ -22,7 +22,7 @@ Transform rough ideas into fully-formed designs through structured questioning a
 | **1.5. External References** | Pattern extraction from external code/repos   | Smart sampling, context mapping        | Reference analysis doc (if substantial)    |
 | **2. Exploration**           | Propose 2-3 approaches                        | AskUserQuestion for approach selection | Architecture options with trade-offs       |
 | **3. Design Presentation**   | Present in 200-300 word sections              | Open-ended questions                   | Complete design with validation            |
-| **4. Design Documentation**  | Write design document                         | writing-clearly-and-concisely skill    | Design doc in docs/plans/                  |
+| **4. Design Documentation**  | Write design document                         | writing-clearly-and-concisely skill    | Design doc in docs/designs/                |
 | **4.5. Challenge Design**    | Stress-test with alternative perspectives     | Steel man alternatives, bias check     | Validated or revised design                |
 | **5. Worktree Setup**        | Set up isolated workspace                     | using-git-worktrees skill              | Ready development environment              |
 | **6. Planning Handoff**      | Create implementation plan                    | writing-plans skill                    | Detailed task breakdown                    |
@@ -38,7 +38,7 @@ Brainstorming Progress:
 - [ ] Phase 1.5: External References (if applicable - pattern extraction complete)
 - [ ] Phase 2: Exploration (2-3 approaches proposed and evaluated)
 - [ ] Phase 3: Design Presentation (design validated in sections)
-- [ ] Phase 4: Design Documentation (design written to docs/plans/)
+- [ ] Phase 4: Design Documentation (design written to docs/designs/)
 - [ ] Phase 4.5: Challenge Design (stress-tested and validated)
 - [ ] Phase 5: Worktree Setup (if implementing)
 - [ ] Phase 6: Planning Handoff (if implementing)
@@ -128,10 +128,35 @@ I recommend the direct API approach because it matches existing patterns and min
 
 After validating the design, write it to a permanent document:
 
-- **File location:** `docs/plans/YYYY-MM-DD-<topic>-design.md` (use actual date and descriptive topic)
+**Retcon Writing Technique:**
+
+Write the design in **present tense** as if the feature already exists:
+
+- ✅ "The system validates inputs before processing"
+- ❌ "The system will validate inputs before processing"
+- ✅ "Authentication uses JWT tokens"
+- ❌ "Authentication will use JWT tokens"
+
+This reduces hedging, makes designs more concrete, and easier to review.
+
+- **File location:** `docs/designs/YYYY-MM-DD-<topic>-design.md` (use actual date and descriptive topic)
 - **RECOMMENDED SUB-SKILL:** Use elements-of-style:writing-clearly-and-concisely (if available) for documentation quality
-- **Content:** Capture the design as discussed and validated in Phase 3, organized into sections that emerged from the conversation
+- **Content:** Use design template structure from `docs/designs/README.md`:
+  - Goal (one paragraph problem/value statement)
+  - Architecture (high-level approach, present tense)
+  - Components (major parts and responsibilities)
+  - Data Flow (how data moves through system)
+  - Error Handling (failure modes and recovery)
+  - Testing Strategy (unit/integration/e2e approach)
+  - Open Questions (TBD items)
+  - Design Decisions (key choices with rationale)
+  - Related ADRs (links to architecture decision records)
+  - Source (inspiration or prior art references)
 - Commit the design document to git before proceeding
+
+**Approval gate:** Ask user: "Design document created in `docs/designs/`. Review before proceeding to worktree setup?"
+
+Wait for user confirmation before moving to Phase 5.
 
 **If significant architectural choice was made:**
 
