@@ -66,6 +66,12 @@ git diff {BASE_SHA}..{HEAD_SHA}
 - Documentation complete?
 - No obvious bugs?
 
+**Process Hygiene:**
+
+- Background processes cleaned up?
+- No orphaned shells from subagents?
+- Temporary artifacts removed?
+
 ## Output Format
 
 ### Strengths

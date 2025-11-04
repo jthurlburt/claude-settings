@@ -22,6 +22,11 @@ This is a personal fork with additional skills and enhancements borrowed from mu
   - Retcon writing technique (present tense) for design docs
   - Rationalization defenses (red flags and tables) to prevent skipping design context
   - Graceful degradation when design docs absent (backward compatible)
+- Background process cleanup protocols for all subagent workflows (2025-11-04)
+  - Mandatory cleanup steps with imperative language (Authority principle)
+  - Social proof patterns ("Every time" language for universal behaviors)
+  - Anti-rationalization tables preemptively countering common excuses
+  - Process hygiene checks added to code review template
 
 ## Attribution
 
@@ -98,11 +103,26 @@ Skills with added capabilities from concept extraction:
 **dispatching-parallel-agents:**
 
 - Generalized from debugging-only to cover research, analysis, and any parallel tasks (2025-10-23)
+- Background process cleanup protocols with anti-rationalization defenses (2025-11-04)
+
+**executing-plans:**
+
+- Background process cleanup at completion step with mandatory language (2025-11-04)
 
 **subagent-driven-development:**
 
 - Design document context passed to implementation subagents (2025-11-03)
 - Rationalization defenses for architectural alignment (2025-11-03)
+- Background process cleanup protocols with persuasion principles (2025-11-04)
+
+**requesting-code-review:**
+
+- Mandatory cleanup after code reviewer subagents complete (2025-11-04)
+- Process hygiene added to code review checklist template (2025-11-04)
+
+**testing-skills-with-subagents:**
+
+- CLEANUP phase added to TDD cycle with resource waste warnings (2025-11-04)
 
 **documentation-management:**
 

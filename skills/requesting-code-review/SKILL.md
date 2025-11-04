@@ -51,6 +51,16 @@ Use Task tool with superpowers:code-reviewer type, fill template at `code-review
 - Note Minor issues for later
 - Push back if reviewer is wrong (with reasoning)
 
+**4. Cleanup after review - MANDATORY:**
+
+If subagent was used for review, YOU MUST clean up:
+
+1. List background shells: `/bashes`
+2. Kill the code-reviewer subagent's shell
+3. Verify: `/bashes` shows no orphaned processes
+
+Code reviewer subagents leave background shells running. Every time. Clean up immediately after review completes.
+
 ## Example
 
 ```
@@ -105,6 +115,15 @@ You: [Fix progress indicators]
 - Ignore Critical issues
 - Proceed with unfixed Important issues
 - Argue with valid technical feedback
+- Skip cleanup because "I'll do it later"
+
+**Cleanup rationalizations:**
+
+| Excuse                              | Reality                                             |
+| ----------------------------------- | --------------------------------------------------- |
+| "I'll clean up at end of session"   | You'll forget. Clean up immediately after each use. |
+| "Background processes don't matter" | They consume resources. Poor hygiene compounds.     |
+| "Just one more task first"          | Clean up now. Before proceeding to next task.       |
 
 **If reviewer wrong:**
 

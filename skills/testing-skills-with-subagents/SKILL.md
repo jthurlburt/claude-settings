@@ -346,10 +346,18 @@ Before deploying skill, verify you followed RED-GREEN-REFACTOR:
 - [ ] Added explicit counters for each loophole
 - [ ] Updated rationalization table
 - [ ] Updated red flags list
-- [ ] Updated description ith violation symptoms
+- [ ] Updated description with violation symptoms
 - [ ] Re-tested - agent still complies
 - [ ] Meta-tested to verify clarity
 - [ ] Agent follows rule under maximum pressure
+
+**CLEANUP Phase:**
+
+- [ ] Listed background shells created during testing
+- [ ] Killed all subagent-created background processes
+- [ ] Verified no orphaned processes remain
+
+Skill testing = multiple RED-GREEN-REFACTOR cycles = multiple subagent invocations = accumulated background shells. Every time. Clean up or waste resources.
 
 ## Common Mistakes (Same as TDD)
 
@@ -377,6 +385,10 @@ Agents resist single pressure, break under multiple.
 Tests pass once ≠ bulletproof.
 ✅ Fix: Continue REFACTOR cycle until no new rationalizations.
 
+**❌ Skipping cleanup after testing**
+Multiple test cycles = accumulated background shells.
+✅ Fix: Kill all subagent shells after completing RED-GREEN-REFACTOR.
+
 ## Quick Reference (TDD Cycle)
 
 | TDD Phase        | Skill Testing                   | Success Criteria                       |
@@ -387,6 +399,7 @@ Tests pass once ≠ bulletproof.
 | **Verify GREEN** | Re-test scenarios               | Agent follows rule under pressure      |
 | **REFACTOR**     | Close loopholes                 | Add counters for new rationalizations  |
 | **Stay GREEN**   | Re-verify                       | Agent still complies after refactoring |
+| **CLEANUP**      | Kill background processes       | No orphaned shells remain              |
 
 ## The Bottom Line
 

@@ -88,6 +88,30 @@ When agents return:
 - Run full test suite
 - Integrate all changes
 
+### 5. Cleanup Background Processes
+
+**YOU MUST clean up background processes after agents complete. No exceptions.**
+
+Parallel agents leave background shells running. Every time.
+
+```bash
+# List all background bash shells
+/bashes
+
+# For each shell_id from dispatched agents:
+KillShell(shell_id)
+```
+
+**Required steps:**
+
+1. List background shells: `/bashes`
+2. Kill all shells created by your dispatched agents
+3. Verify: `/bashes` shows no orphaned processes
+
+**Skipping cleanup = resource waste. Every session.**
+
+Dispatching 3 agents in parallel = 3+ background shells minimum. They don't terminate automatically.
+
 ## Agent Prompt Structure
 
 Good agent prompts are:
@@ -138,6 +162,14 @@ Return: Summary of what you found and what you fixed.
 **Exploratory work:** You don't know what domains exist yet
 **Shared state:** Agents would interfere (editing same files, conflicting changes)
 **Sequential dependencies:** Task B requires results from Task A
+
+## Cleanup Rationalizations
+
+| Excuse                            | Reality                                                           |
+| --------------------------------- | ----------------------------------------------------------------- |
+| "Agents will clean up themselves" | They don't. Background shells persist until explicitly killed.    |
+| "I'll batch cleanup at end"       | You'll accumulate shells. Clean up immediately after integration. |
+| "System will handle it"           | It won't. Poor hygiene = resource waste.                          |
 
 ## Real Examples
 
@@ -222,6 +254,7 @@ After agents return:
 2. **Check for conflicts** - Did agents edit same code?
 3. **Run full suite** - Verify all fixes work together
 4. **Spot check** - Agents can make systematic errors
+5. **Clean up processes** - Kill background shells from completed agents
 
 ## Real-World Impact
 

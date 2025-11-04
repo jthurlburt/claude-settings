@@ -121,9 +121,23 @@ After all tasks complete, dispatch final code-reviewer:
 - Checks all plan requirements met
 - Validates overall architecture
 
-### 7. Complete Development
+### 7. Cleanup and Complete Development
 
 After final review passes:
+
+**Cleanup background processes - MANDATORY:**
+
+YOU MUST clean up background processes before completing. No exceptions.
+
+1. List background shells: `/bashes`
+2. Kill all shells created by subagents
+3. Verify: `/bashes` shows no orphaned processes
+
+Each subagent dispatch = background shells. Every time. Multiple tasks = accumulated shells = resource waste.
+
+**Skipping cleanup = poor process hygiene. Always.**
+
+**Complete development:**
 
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
 - **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
@@ -195,6 +209,7 @@ Done!
 - Proceed with unfixed Critical issues
 - Dispatch multiple implementation subagents in parallel (conflicts)
 - Implement without reading plan task
+- Leave background processes running after subagents complete
 
 **Design doc rationalizations:**
 
@@ -211,6 +226,14 @@ If you're thinking:
 | "Task is too simple"       | Simple tasks still need architectural alignment. 2 min reading prevents integration issues. |
 | "Slows iteration"          | Fast implementation of wrong architecture is slower overall. Context prevents rework.       |
 | "I read it, that's enough" | Subagent has fresh eyes. They'll catch what you missed. Design doc provides shared context. |
+
+**Cleanup rationalizations:**
+
+| Excuse                              | Reality                                                        |
+| ----------------------------------- | -------------------------------------------------------------- |
+| "I'll clean up after all tasks"     | Multiple subagents = accumulated shells. Clean up per task.    |
+| "Background processes auto-cleanup" | They don't. You must kill them explicitly.                     |
+| "One more subagent won't matter"    | Each adds more. Clean up immediately after subagent completes. |
 
 **If subagent fails task:**
 

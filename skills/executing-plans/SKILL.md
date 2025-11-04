@@ -60,9 +60,21 @@ Based on feedback:
 - Execute next batch
 - Repeat until complete
 
-### Step 5: Complete Development
+### Step 5: Cleanup and Complete Development
 
 After all tasks complete and verified:
+
+**Cleanup background processes - MANDATORY:**
+
+YOU MUST clean up background processes before completing. No exceptions.
+
+1. List background shells: `/bashes`
+2. Kill all shells created during plan execution
+3. Verify: `/bashes` shows no orphaned processes
+
+Plan execution leaves background shells running. Every time. Long plans = accumulated resource waste.
+
+**Complete development:**
 
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
 - **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
@@ -105,6 +117,14 @@ After all tasks complete and verified:
 
 **Don't force through blockers** - stop and ask.
 
+## Cleanup Rationalizations
+
+| Excuse                            | Reality                                                 |
+| --------------------------------- | ------------------------------------------------------- |
+| "I'll clean up when plan done"    | Shells accumulate during execution. Clean up at Step 5. |
+| "Long plan = cleanup can wait"    | Long plan = more shells. Clean up before completion.    |
+| "Background processes don't hurt" | They consume resources. Always clean up.                |
+
 ## Remember
 
 - Review plan critically first
@@ -113,3 +133,4 @@ After all tasks complete and verified:
 - Reference skills when plan says to
 - Between batches: just report and wait
 - Stop when blocked, don't guess
+- Clean up background processes at Step 5
