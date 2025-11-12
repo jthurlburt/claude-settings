@@ -191,5 +191,5 @@ MIT License - see LICENSE file for details
 
 ## Support
 
-- **Issues**: https://github.com/obra/superpowers/issues
-- **Marketplace**: https://github.com/obra/superpowers-marketplace
+- **Issues**: https://github.com/jthurlburt/claude-settings/issues
+- **Original Project**: https://github.com/obra/superpowers
